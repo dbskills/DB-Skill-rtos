@@ -103,10 +103,7 @@ class PGGRunner:
                     self.cur.execute("set geqo_threshold = 20;")
                 else:
                     self.cur.execute("set join_collapse_limit = 1;")
-                    if not sql.trained:
-                        self.cur.execute("set geqo_threshold = 20;")
-                    else:
-                        self.cur.execute("set geqo_threshold = 2;")
+                    self.cur.execute("set geqo_threshold = 12;")
                 self.cur.execute("explain (COSTS, FORMAT JSON, ANALYSE) "+sqlwithplan)
                 rows = self.cur.fetchall()
                 row = rows[0][0]
@@ -142,7 +139,7 @@ class PGGRunner:
             self.cur.execute("set geqo_threshold = 20;")
         else:
             self.cur.execute("set join_collapse_limit = 1;")
-            self.cur.execute("set geqo_threshold = 2;")
+            self.cur.execute("set geqo_threshold = 12;")
         # self.cur.execute("SET statement_timeout =  4000;")
         import time
         st = time.time()
@@ -164,7 +161,7 @@ class PGGRunner:
             self.cur.execute("set geqo_threshold = 202;")
         else:
             self.cur.execute("set join_collapse_limit = 1;")
-            self.cur.execute("set geqo_threshold = 2;")
+            self.cur.execute("set geqo_threshold = 12;")
         self.cur.execute("SET statement_timeout =  40000;")
         self.cur.execute("EXPLAIN "+sqlwithplan)
         rows = self.cur.fetchall()
@@ -187,7 +184,7 @@ class PGGRunner:
             self.cur.execute("set geqo_threshold = 20;")
         else:
             self.cur.execute("set join_collapse_limit = 1;")
-            self.cur.execute("set geqo_threshold = 2;")
+            self.cur.execute("set geqo_threshold = 12;")
         self.cur.execute("SET statement_timeout =  4000;")
         sqlwithplan = sqlwithplan +";"
         self.cur.execute("EXPLAIN (COSTS, FORMAT JSON) "+sqlwithplan)
